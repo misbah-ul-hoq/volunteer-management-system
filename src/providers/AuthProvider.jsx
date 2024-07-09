@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase.config";
+import api from "../axios/fetch";
 const googleProvider = new GoogleAuthProvider();
 export const AuthContext = createContext(null);
 
@@ -16,10 +17,15 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [userMongo, setUserMongo] = useState(null);
 
   const signUpWithEmailAndPassword = (email, passworrd) => {
     return createUserWithEmailAndPassword(auth, email, passworrd);
   };
+
+  useEffect(() => {
+    api.get(`/user?email=${user?.email}`).then((res) => setUserMongo(res.data));
+  }, [user?.email]);
 
   const logInWithEmailAndPassword = (email, passworrd) => {
     return signInWithEmailAndPassword(auth, email, passworrd);
@@ -49,6 +55,7 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+    userMongo,
     setUser,
     loading,
     setLoading,

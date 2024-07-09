@@ -24,7 +24,7 @@ const FormComponent = () => {
     const description = form.get("description");
     const category = form.get("category");
     const location = form.get("location");
-    const numberOfVolunteers = form.get("numberOfVolunteers");
+    const numberOfVolunteers = parseInt(form.get("numberOfVolunteers"));
     const deadLine = startDate;
     const volunteerPost = {
       thumbnailURL,

@@ -50,7 +50,12 @@ const VolunteerNeeds = () => {
         })}
       </div>
 
-      <Link to="/need-volunteer">View All</Link>
+      <Link
+        to="/need-volunteer"
+        className="btn btn-primary mx-auto flex w-28 mt-9"
+      >
+        View All
+      </Link>
     </section>
   );
 };

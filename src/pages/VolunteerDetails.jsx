@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import api from "../axios/fetch";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const VolunteerDetails = () => {
+  const { user, userMongo } = useContext(AuthContext);
   const id = useParams().id;
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -17,7 +19,7 @@ const VolunteerDetails = () => {
         <img
           src={data?.thumbnailURL}
           alt="thumbnail"
-          className="h-80 object-cover rounded-md"
+          className="h-80 max-w-96 object-cover rounded-md"
         />
         <h3 className="text-2xl font-bold">{data?.postTitle}</h3>
         <p className="">{data?.description}</p>
@@ -30,6 +32,178 @@ const VolunteerDetails = () => {
         <p>Organizer Name: {data?.organizerName}</p>
         <p>Organizer Email: {data?.organizerEmail}</p>
       </div>
+
+      {/* Open the modal using document.getElementById('ID').showModal() method */}
+      <button
+        className="btn btn-primary mt-6"
+        onClick={() => document.getElementById("my_modal_1").showModal()}
+      >
+        Be a volunteer
+      </button>
+      <dialog
+        id="my_modal_1"
+        className="modal modal-backdrop text-base-content"
+      >
+        <div className="modal-box">
+          <div className="max-w-xl mx-auto p-5 bg-base-200 shadow-lg rounded-lg">
+            <h1 className="text-2xl font-bold mb-6 text-center">
+              Event Details
+            </h1>
+
+            {/* values from mongodb */}
+            <form className="space-y-4">
+              <div className="form-control">
+                <img
+                  src={data?.thumbnailURL}
+                  alt="Thumbnail"
+                  className="w-full h-64 object-cover rounded-lg"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Post Title</span>
+                </label>
+                <input
+                  type="text"
+                  // value={data?.postTitle}
+                  defaultValue={data?.postTitle}
+                  placeholder={data?.postTitle}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Description</span>
+                </label>
+                <textarea
+                  value={data?.description}
+                  className="textarea textarea-bordered w-full h-24"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Category</span>
+                </label>
+                <input
+                  type="text"
+                  value={data?.category}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Location</span>
+                </label>
+                <input
+                  type="text"
+                  value={data?.location}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">No. of Volunteers Needed</span>
+                </label>
+                <input
+                  type="number"
+                  value={data?.numberOfVolunteers}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Deadline</span>
+                </label>
+                <input
+                  type="date"
+                  value={data?.deadLine}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Organizer Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={data?.organizerName}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Organizer Email</span>
+                </label>
+                <input
+                  type="email"
+                  value={data?.organizerEmail}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+            </form>
+
+            {/* values from user */}
+            <form>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Your Email</span>
+                </label>
+                <input
+                  value={user?.email || userMongo?.email || ""}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Your Name</span>
+                </label>
+                <input
+                  value={user?.displayName || userMongo?.name || ""}
+                  className="input input-bordered w-full"
+                  readOnly
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Suggestion</span>
+                </label>
+                <input
+                  className="input input-bordered w-full"
+                  placeholder="Suggestion"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Status</span>
+                </label>
+                <input
+                  className="input input-bordered w-full"
+                  placeholder="request"
+                />
+              </div>
+            </form>
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-primary" onClick={() => {}}>
+                Request
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

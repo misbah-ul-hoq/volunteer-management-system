@@ -2,15 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import api from "../../axios/fetch";
 
 const NavBar = () => {
-  const { user, signOutUser } = useContext(AuthContext);
-  const [userMongo, setUser] = useState(null);
-
-  useEffect(() => {
-    api.get(`/user?email=${user?.email}`).then((res) => setUser(res.data));
-  }, [user?.email]);
+  const { user, signOutUser, userMongo } = useContext(AuthContext);
 
   const [volunteerTheme, setTheme] = useState(
     localStorage.getItem("volunteerTheme")
