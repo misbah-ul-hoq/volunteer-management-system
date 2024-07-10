@@ -2,14 +2,20 @@ import { useContext, useEffect, useState } from "react";
 import api from "../axios/fetch";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const VolunteerDetails = () => {
   const { user, userMongo } = useContext(AuthContext);
   const id = useParams().id;
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
+  const [suggestion, setSuggestion] = useState({});
+
+  //creating a new object so that the property _id does not get duplicated on the database,
+  const { _id: appliedFor, ...rest } = data;
+  const newData = { appliedFor, ...rest };
+
   useEffect(() => {
     api.get(`/volunteers/${id}`).then((res) => {
-      console.log(res.data);
       setData(res.data);
     });
   }, [id]);
@@ -40,6 +46,7 @@ const VolunteerDetails = () => {
       >
         Be a volunteer
       </button>
+
       <dialog
         id="my_modal_1"
         className="modal modal-backdrop text-base-content"
@@ -60,6 +67,7 @@ const VolunteerDetails = () => {
                   readOnly
                 />
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Post Title</span>
@@ -73,56 +81,61 @@ const VolunteerDetails = () => {
                   readOnly
                 />
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Description</span>
                 </label>
                 <textarea
-                  value={data?.description}
+                  defaultValue={data?.description}
                   className="textarea textarea-bordered w-full h-24"
                   readOnly
                 />
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Category</span>
                 </label>
                 <input
                   type="text"
-                  value={data?.category}
+                  defaultValue={data?.category}
                   className="input input-bordered w-full"
                   readOnly
                 />
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Location</span>
                 </label>
                 <input
                   type="text"
-                  value={data?.location}
+                  defaultValue={data?.location}
                   className="input input-bordered w-full"
                   readOnly
                 />
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">No. of Volunteers Needed</span>
                 </label>
                 <input
                   type="number"
-                  value={data?.numberOfVolunteers}
+                  defaultValue={data?.numberOfVolunteers}
                   className="input input-bordered w-full"
                   readOnly
                 />
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Deadline</span>
                 </label>
                 <input
                   type="date"
-                  value={data?.deadLine}
+                  defaultValue={data?.deadLine}
                   className="input input-bordered w-full"
                   readOnly
                 />
@@ -133,7 +146,7 @@ const VolunteerDetails = () => {
                 </label>
                 <input
                   type="text"
-                  value={data?.organizerName}
+                  defaultValue={data?.organizerName}
                   className="input input-bordered w-full"
                   readOnly
                 />
@@ -144,7 +157,7 @@ const VolunteerDetails = () => {
                 </label>
                 <input
                   type="email"
-                  value={data?.organizerEmail}
+                  defaultValue={data?.organizerEmail}
                   className="input input-bordered w-full"
                   readOnly
                 />
@@ -158,7 +171,7 @@ const VolunteerDetails = () => {
                   <span className="label-text">Your Email</span>
                 </label>
                 <input
-                  value={user?.email || userMongo?.email || ""}
+                  defaultValue={user?.email || userMongo?.email || ""}
                   className="input input-bordered w-full"
                   readOnly
                 />
@@ -169,11 +182,12 @@ const VolunteerDetails = () => {
                   <span className="label-text">Your Name</span>
                 </label>
                 <input
-                  value={user?.displayName || userMongo?.name || ""}
+                  defaultValue={user?.displayName || userMongo?.name || ""}
                   className="input input-bordered w-full"
                   readOnly
                 />
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Suggestion</span>
@@ -181,8 +195,16 @@ const VolunteerDetails = () => {
                 <input
                   className="input input-bordered w-full"
                   placeholder="Suggestion"
+                  value={suggestion.suggestion ? suggestion.suggestion : ""}
+                  onChange={(e) => {
+                    setSuggestion({
+                      ...suggestion,
+                      suggestion: e.target.value,
+                    });
+                  }}
                 />
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Status</span>
@@ -190,6 +212,13 @@ const VolunteerDetails = () => {
                 <input
                   className="input input-bordered w-full"
                   placeholder="request"
+                  value={suggestion.request ? suggestion.request : "requested"}
+                  onChange={(e) =>
+                    setSuggestion({
+                      ...suggestion,
+                      request: e.target.value,
+                    })
+                  }
                 />
               </div>
             </form>
@@ -197,7 +226,26 @@ const VolunteerDetails = () => {
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-primary" onClick={() => {}}>
+              <button className="btn mr-4">Close</button>
+
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  api
+                    .post(`/volunteers/request/${data?._id}`, {
+                      ...newData,
+                      ...suggestion,
+                    })
+                    .then((res) => {
+                      if (res.data.acknowledged) {
+                        Swal.fire({
+                          text: "Requested successfully",
+                          icon: "success",
+                        });
+                      }
+                    });
+                }}
+              >
                 Request
               </button>
             </form>
