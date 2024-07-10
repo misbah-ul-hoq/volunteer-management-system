@@ -37,6 +37,9 @@ const NavBar = () => {
       <li>
         <NavLink to="/add-volunteer">Add Volunteer</NavLink>
       </li>
+      <li>
+        <NavLink to="/my-posts">My posts</NavLink>
+      </li>
       {!user && (
         <li>
           <NavLink to="/login">Login</NavLink>
