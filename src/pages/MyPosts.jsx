@@ -3,12 +3,13 @@ import { AuthContext } from "../providers/AuthProvider";
 import api from "../axios/fetch";
 import edit from "../assets/edit.svg";
 import deleteIcon from "../assets/delete.svg";
+import { Link } from "react-router-dom";
 
 const MyPosts = () => {
   const { user } = useContext(AuthContext);
   const [myPosts, setMyPosts] = useState([]);
   useEffect(() => {
-    api.get(`/volunteers/?email=${user?.email}`).then((res) => {
+    api.get(`/volunteers/user/${user?.email}`).then((res) => {
       setMyPosts(res.data);
     });
   }, [user?.email]);
@@ -40,11 +41,17 @@ const MyPosts = () => {
                   <td>{post?.location}</td>
                   <td>{post?.numberOfVolunteers}</td>
                   <td className="flex gap-4 items-center">
-                    <img
-                      src={edit}
-                      alt="Edit icon"
-                      className="inline-block cursor-pointer"
-                    />
+                    <Link
+                      to={`/volunteers/update/${post?._id}`}
+                      className="cursor-pointer"
+                    >
+                      <img
+                        src={edit}
+                        alt="Edit icon"
+                        className="inline-block cursor-pointer"
+                      />
+                    </Link>
+
                     <img
                       src={deleteIcon}
                       alt="Delete icon"
