@@ -58,7 +58,9 @@ const AllVolunteers = () => {
                       />
                     </figure>
                     <div className="card-body">
-                      <h2 className="card-title">{postTitle}</h2>
+                      <h2 className="card-title">
+                        {postTitle.split(" ").slice(0, 4).join(" ")}
+                      </h2>
                       <p>{description.split(" ").slice(0, 10).join(" ")}</p>
                       <div className="flex gap-3 items-center my-3">
                         <p>Deadline: </p>
