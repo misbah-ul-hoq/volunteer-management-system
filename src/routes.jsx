@@ -10,6 +10,7 @@ import VolunteerDetails from "./pages/VolunteerDetails";
 import AllVolunteers from "./pages/AllVolunteers";
 import MyPosts from "./pages/MyPosts";
 import UpdatePage from "./pages/UpdatePage";
+import api from "./axios/fetch";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/volunteers/update/:id",
+
         element: (
           <PrivateRoute>
             <UpdatePage />

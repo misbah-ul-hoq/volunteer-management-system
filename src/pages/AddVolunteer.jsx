@@ -143,6 +143,7 @@ const FormComponent = () => {
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
+            dateFormat="MM/dd/yyyy"
             className="input input-bordered w-full"
           />
         </div>

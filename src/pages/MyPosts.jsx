@@ -36,7 +36,7 @@ const MyPosts = () => {
             <tbody>
               {myPosts?.map((post) => (
                 <tr key={post._id}>
-                  <th>{post?.postTitle}</th>
+                  <th>{post?.postTitle.split(" ").slice(0, 4).join(" ")}</th>
                   <td>{post?.category}</td>
                   <td>{post?.location}</td>
                   <td>{post?.numberOfVolunteers}</td>
