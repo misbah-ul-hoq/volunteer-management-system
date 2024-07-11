@@ -47,13 +47,15 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubsribe = () => {
-      return onAuthStateChanged(auth, (currenUser) => {
-        setUser(currenUser);
-        setLoading(false);
-      });
-    };
-    return () => unsubsribe();
+    onAuthStateChanged(auth, (currenUser) => {
+      setUser(currenUser);
+      setLoading(false);
+    });
+    // const unsubsribe = () => {
+    //   return
+    //   });
+    // };
+    // return () => unsubsribe();
   }, []);
 
   const authInfo = {
