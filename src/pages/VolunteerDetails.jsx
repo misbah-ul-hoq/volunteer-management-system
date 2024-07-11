@@ -45,9 +45,12 @@ const VolunteerDetails = () => {
       <button
         className="btn btn-primary mt-6"
         onClick={() => document.getElementById("my_modal_1").showModal()}
+        disabled={data.numberOfVolunteers === 0 ? "disabled" : ""}
       >
         Be a volunteer
       </button>
+
+      {data.numberOfVolunteers === 0 && <p>Criteria met.</p>}
 
       <dialog
         id="my_modal_1"
