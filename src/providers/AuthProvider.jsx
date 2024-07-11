@@ -24,7 +24,10 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    api.get(`/user?email=${user?.email}`).then((res) => setUserMongo(res.data));
+    api.get(`/user?email=${user?.email}`).then((res) => {
+      setUserMongo(res.data);
+      setLoading(false);
+    });
   }, [user?.email]);
 
   const logInWithEmailAndPassword = (email, passworrd) => {
