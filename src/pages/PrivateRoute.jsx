@@ -7,11 +7,12 @@ const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
 
-  if (loading) {
-    return <div className="skeleton h-32 w-32 my-10 mx-auto"></div>;
-  }
   if (user) {
     return <div>{children}</div>;
+  }
+
+  if (loading) {
+    return <div className="skeleton h-32 w-32 my-10 mx-auto"></div>;
   }
   return <Navigate to="/login" state={location.pathname} />;
 };
