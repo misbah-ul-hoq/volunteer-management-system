@@ -149,10 +149,7 @@ const NavBar = () => {
                 >
                   Add volunteer
                 </Link>
-                <Link
-                  to="/manage-my-post"
-                  className="text-center underline py-1"
-                >
+                <Link to="/my-posts" className="text-center underline py-1">
                   Manage my post
                 </Link>
                 <button

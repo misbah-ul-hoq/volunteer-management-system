@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const { logInWithEmailAndPassword, signInWithGoogle, user } =
+  const { logInWithEmailAndPassword, signInWithGoogle } =
     useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
