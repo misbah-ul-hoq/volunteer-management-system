@@ -4,6 +4,7 @@ import api from "../axios/fetch";
 import edit from "../assets/edit.svg";
 import deleteIcon from "../assets/delete.svg";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyPosts = () => {
   const { user } = useContext(AuthContext);
@@ -56,6 +57,33 @@ const MyPosts = () => {
                       src={deleteIcon}
                       alt="Delete icon"
                       className="h-6 cursor-pointer"
+                      onClick={() => {
+                        Swal.fire({
+                          title: "Are you sure?",
+                          text: "You won't be able to revert this!",
+                          icon: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#3085d6",
+                          cancelButtonColor: "#d33",
+                          confirmButtonText: "Yes, delete it!",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            api
+                              .post(`/volunteers/delete/${post?._id}`)
+                              .then((res) => {
+                                if (res.data.deletedCount) {
+                                  Swal.fire({
+                                    title: "Deleted successfully",
+                                    icon: "success",
+                                  });
+                                }
+                                setMyPosts(
+                                  myPosts.filter((item) => item._id != post._id)
+                                );
+                              });
+                          }
+                        });
+                      }}
                     />
                   </td>
                 </tr>
