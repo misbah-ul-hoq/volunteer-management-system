@@ -41,16 +41,12 @@ const MyPosts = () => {
                   <td>{post?.category}</td>
                   <td>{post?.location}</td>
                   <td>{post?.numberOfVolunteers}</td>
-                  <td className="flex gap-4 items-center">
+                  <td className="flex gap-3 items-center">
                     <Link
                       to={`/volunteers/update/${post?._id}`}
-                      className="cursor-pointer"
+                      className="cursor-pointer flex-grow w-12"
                     >
-                      <img
-                        src={edit}
-                        alt="Edit icon"
-                        className="inline-block cursor-pointer"
-                      />
+                      <img src={edit} alt="Edit" className="h-6 w-6" />
                     </Link>
 
                     <img
