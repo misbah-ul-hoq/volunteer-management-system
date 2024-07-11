@@ -3,8 +3,10 @@ import api from "../axios/fetch";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const VolunteerDetails = () => {
+  useDocumentTitle("Volunteer Details");
   const { user, userMongo } = useContext(AuthContext);
   const id = useParams().id;
   const [data, setData] = useState({});

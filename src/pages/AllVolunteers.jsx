@@ -3,11 +3,13 @@ import formatDate from "../functions/functions";
 import { Fade } from "react-awesome-reveal";
 import useFetch from "../hooks/useFetch";
 import { useState } from "react";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const AllVolunteers = () => {
+  useDocumentTitle("All Volunteers");
   const [endPoint, setEndPoint] = useState("/volunteers");
   const { data } = useFetch(`${endPoint}`);
-  console.log(endPoint);
+
   return (
     <section className="container-center">
       <label className="input input-primary input-bordered flex items-center gap-2 my-4">

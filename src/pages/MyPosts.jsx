@@ -5,8 +5,10 @@ import edit from "../assets/edit.svg";
 import deleteIcon from "../assets/delete.svg";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const MyPosts = () => {
+  useDocumentTitle("My Posts");
   const { user } = useContext(AuthContext);
   const [myPosts, setMyPosts] = useState([]);
   useEffect(() => {

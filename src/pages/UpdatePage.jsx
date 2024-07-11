@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import api from "../axios/fetch";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const UpdatePage = () => {
+  useDocumentTitle("Update");
   const [currentPost, setCurrentPost] = useState({});
 
   const {

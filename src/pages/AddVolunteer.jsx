@@ -4,8 +4,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../providers/AuthProvider";
 import api from "../axios/fetch";
 import Swal from "sweetalert2";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const FormComponent = () => {
+  useDocumentTitle("Add Volunteer");
   const { user, loading } = useContext(AuthContext);
   const [userFromMongo, setUser] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
