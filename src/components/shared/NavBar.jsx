@@ -54,7 +54,7 @@ const NavBar = () => {
           className="ml-2 pl-1"
           onClick={() => {
             signOutUser().then(() => {
-              api.post("/logout").then((res) => console.log(res.data));
+              api.post("/logout");
               Swal.fire({
                 title: "Sign Out Successfull",
                 icon: "success",
