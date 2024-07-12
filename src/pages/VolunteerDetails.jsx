@@ -9,9 +9,7 @@ const VolunteerDetails = () => {
   useDocumentTitle("Volunteer Details");
   const { user, userMongo } = useContext(AuthContext);
   const id = useParams().id;
-  const [data, setData] = useState({
-    requestEmail: user?.email,
-  });
+  const [data, setData] = useState({});
   const [suggestion, setSuggestion] = useState({});
 
   //creating a new object so that the property _id does not get duplicated on the database,
@@ -243,6 +241,7 @@ const VolunteerDetails = () => {
                     .post(`/volunteers/request/${data?._id}`, {
                       ...newData,
                       ...suggestion,
+                      requestEmail: user?.email,
                     })
                     .then((res) => {
                       if (res.data.acknowledged) {
