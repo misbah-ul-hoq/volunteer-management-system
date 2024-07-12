@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import api from "../../axios/fetch";
 
 const NavBar = () => {
   const { user, signOutUser, userMongo } = useContext(AuthContext);
@@ -53,6 +54,7 @@ const NavBar = () => {
           className="ml-2 pl-1"
           onClick={() => {
             signOutUser().then(() => {
+              api.post("/logout").then((res) => console.log(res.data));
               Swal.fire({
                 title: "Sign Out Successfull",
                 icon: "success",
