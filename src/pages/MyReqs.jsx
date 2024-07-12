@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 const MyReqs = () => {
   const { user } = useContext(AuthContext);
   const [myReqs, setMyReqs] = useState([]);
+  console.log(user);
   useEffect(() => {
     api.get(`/requests/${user?.email}`).then((res) => {
       setMyReqs(res.data);
@@ -41,7 +42,7 @@ const MyReqs = () => {
       <div className="overflow-x-auto">
         {myReqs.length === 0 && (
           <h3 className="text-center text-3xl font-bold">
-            You have not added any post
+            You have not requested for any post
           </h3>
         )}
         <table className="table">
