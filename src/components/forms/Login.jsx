@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import api from "../../axios/fetch";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -91,8 +92,15 @@ const LoginForm = () => {
             className="flex items-center btn mx-8"
             onClick={() => {
               signInWithGoogle()
-                .then(() => {
+                .then((currentUser) => {
                   // const user = userCredential.user;
+                  api.post(
+                    "/jwt",
+                    {
+                      email: currentUser.user.email,
+                    },
+                    { withCredentials: true }
+                  );
                   Swal.fire({
                     text: "Login Successfull",
                     icon: "success",
