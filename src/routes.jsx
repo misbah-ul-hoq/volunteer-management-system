@@ -10,6 +10,7 @@ import VolunteerDetails from "./pages/VolunteerDetails";
 import AllVolunteers from "./pages/AllVolunteers";
 import MyPosts from "./pages/MyPosts";
 import UpdatePage from "./pages/UpdatePage";
+import MyReqs from "./pages/MyReqs";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyPosts />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-requests",
+        element: (
+          <PrivateRoute>
+            <MyReqs />
           </PrivateRoute>
         ),
       },

@@ -40,6 +40,9 @@ const NavBar = () => {
       <li>
         <NavLink to="/my-posts">My posts</NavLink>
       </li>
+      <li>
+        <NavLink to="/my-requests">My Requests</NavLink>
+      </li>
       {!user && (
         <li>
           <NavLink to="/login">Login</NavLink>
