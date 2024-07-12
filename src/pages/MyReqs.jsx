@@ -39,6 +39,11 @@ const MyReqs = () => {
   return (
     <div className="container-center my-10">
       <div className="overflow-x-auto">
+        {myReqs.length === 0 && (
+          <h3 className="text-center text-3xl font-bold">
+            You have not added any post
+          </h3>
+        )}
         <table className="table">
           {/* head */}
           <thead>
